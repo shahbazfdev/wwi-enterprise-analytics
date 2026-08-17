@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_Ingest_WWI_Bronze"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8f730517-89d6-aa31-499b-c018ba9ee3bd"
+  }
+}
