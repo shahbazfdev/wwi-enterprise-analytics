@@ -1,7 +1,7 @@
 # Wide World Importers - Microsoft Fabric Analytics Pipeline
 
 ## Overview
-This project implements an end-to-end data engineering pipeline in **Microsoft Fabric**, extracting transactional data from an Azure SQL Database into a unified OneLake analytics model. By adopting a strict **Medallion Architecture (Bronze, Silver, Gold)**, this solution bridges the gap between operational constraints and enterprise business intelligence demands.
+This project implements an end-to-end data engineering pipeline in Microsoft Fabric, extracting transactional data from an Azure SQL Database into a unified OneLake analytics model. By adopting a strict Medallion Architecture, this solution bridges the gap between operational constraints and enterprise business intelligence demands.
 
 ## Stakeholder Objectives & Solutions
 
@@ -20,7 +20,7 @@ This architecture was explicitly designed to resolve four core enterprise challe
 
 *   **Data Source:** Azure SQL Database (Wide World Importers).
 *   **Bronze Layer (Raw):** Exact replica of WWI transactional tables stored natively in OneLake. Ingested via Fabric Pipelines/Copy Data with minimal source system impact.
-*   **Silver Layer (Cleansed & Conformed):** Data processed using **PySpark** notebooks. Invalid records are filtered, duplicates dropped, and metadata standardized (e.g., audit columns, standardized date formats). 
+*   **Silver Layer (Cleansed & Conformed):** Data processed using PySpark notebooks. Invalid records are filtered, duplicates dropped, and metadata standardized (e.g., audit columns, standardized date formats). 
 *   **Gold Layer (Curated):** Dimensional modeling (Star Schema). Data is logically separated into subject areas (Sales Fact, Supply Chain Fact, Date/Geography/Product Dimensions) optimized for BI consumption.
 
 ## Tech Stack
