@@ -1,0 +1,57 @@
+table dim_customer
+	lineageTag: 3f14b58f-4deb-4a8c-8b75-3f591d4410c4
+	sourceLineageTag: [dbo].[dim_customer]
+
+	column CustomerID
+		dataType: int64
+		formatString: 0
+		lineageTag: ad51b0d1-5f29-4680-ae3e-da486bd07776
+		sourceLineageTag: CustomerID
+		summarizeBy: count
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerName
+		dataType: string
+		lineageTag: e9c45474-d431-4c48-9e75-f1885f611cec
+		sourceLineageTag: CustomerName
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CityName
+		dataType: string
+		lineageTag: e78a8e1a-f9b3-4c7a-a1b5-386f18e246e9
+		sourceLineageTag: CityName
+		summarizeBy: none
+		sourceColumn: CityName
+
+		annotation SummarizationSetBy = Automatic
+
+	column StateProvinceName
+		dataType: string
+		lineageTag: 03c3ce0d-f17f-404e-aeee-f9a46274716f
+		sourceLineageTag: StateProvinceName
+		summarizeBy: none
+		sourceColumn: StateProvinceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryName
+		dataType: string
+		lineageTag: 733e0752-eb4f-4fae-b365-4490eddd6dc4
+		sourceLineageTag: CountryName
+		summarizeBy: none
+		sourceColumn: CountryName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = entity
+		mode: directLake
+		source
+			entityName: dim_customer
+			schemaName: dbo
+			expressionSource: 'DirectLake - WWI_Gold_Lakehouse'
+

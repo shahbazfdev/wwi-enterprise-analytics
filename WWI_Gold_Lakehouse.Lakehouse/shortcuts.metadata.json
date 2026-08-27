@@ -1,0 +1,98 @@
+[
+  {
+    "name": "fact_sales",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Fact_Sales",
+        "itemId": "00000000-0000-0000-0000-000000000000",
+        "workspaceId": "00000000-0000-0000-0000-000000000000"
+      }
+    }
+  },
+  {
+    "name": "fact_purchaseorder",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Fact_PurchaseOrder",
+        "itemId": "00000000-0000-0000-0000-000000000000",
+        "workspaceId": "00000000-0000-0000-0000-000000000000"
+      }
+    }
+  },
+  {
+    "name": "dim_supplier",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Dim_Supplier",
+        "itemId": "00000000-0000-0000-0000-000000000000",
+        "workspaceId": "00000000-0000-0000-0000-000000000000"
+      }
+    }
+  },
+  {
+    "name": "dim_stockitem",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Dim_StockItem",
+        "itemId": "00000000-0000-0000-0000-000000000000",
+        "workspaceId": "00000000-0000-0000-0000-000000000000"
+      }
+    }
+  },
+  {
+    "name": "dim_employee",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Dim_Employee",
+        "itemId": "00000000-0000-0000-0000-000000000000",
+        "workspaceId": "00000000-0000-0000-0000-000000000000"
+      }
+    }
+  },
+  {
+    "name": "dim_deliverymethod",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Dim_DeliveryMethod",
+        "itemId": "00000000-0000-0000-0000-000000000000",
+        "workspaceId": "00000000-0000-0000-0000-000000000000"
+      }
+    }
+  },
+  {
+    "name": "dim_date",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Dim_Date",
+        "itemId": "00000000-0000-0000-0000-000000000000",
+        "workspaceId": "00000000-0000-0000-0000-000000000000"
+      }
+    }
+  },
+  {
+    "name": "dim_customer",
+    "path": "/Tables/dbo",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Dim_Customer",
+        "itemId": "00000000-0000-0000-0000-000000000000",
+        "workspaceId": "00000000-0000-0000-0000-000000000000"
+      }
+    }
+  }
+]

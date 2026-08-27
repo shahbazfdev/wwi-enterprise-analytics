@@ -1,0 +1,146 @@
+table fact_sales
+	lineageTag: 41c245c7-b76f-4e66-8caa-fce5845e9580
+	sourceLineageTag: [dbo].[fact_sales]
+
+	measure 'Total Revenue' = SUMX(Fact_Sales, Fact_Sales[Quantity] * Fact_Sales[UnitPrice])
+		lineageTag: 81af1956-bae7-407e-a247-a082eb677913
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Gross Profit' = SUM(Fact_Sales[GrossProfit])
+		lineageTag: 17490f4a-ff6c-449d-b1a4-93fd74c31feb
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Profit Margin %' = DIVIDE([Total Gross Profit], [Total Revenue])
+		lineageTag: 8bec759b-e309-4b36-8d88-675fd65d590b
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OrderID
+		dataType: int64
+		formatString: 0
+		lineageTag: 7146efee-645e-4bfb-928f-5f2b64a388e7
+		sourceLineageTag: OrderID
+		summarizeBy: count
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerID
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c5de127-f560-42a6-acf4-1945ef299f35
+		sourceLineageTag: CustomerID
+		summarizeBy: count
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalespersonID
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f56b14f-cd4d-4141-9006-e706262656cb
+		sourceLineageTag: SalespersonID
+		summarizeBy: count
+		sourceColumn: SalespersonID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f623f6b9-7505-43ac-9fbc-0e79910a46d6
+		sourceLineageTag: OrderDate
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column StockItemID
+		dataType: int64
+		formatString: 0
+		lineageTag: 55f66bb5-661a-47e6-904d-cb9b073bef43
+		sourceLineageTag: StockItemID
+		summarizeBy: none
+		sourceColumn: StockItemID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: f698d77f-94ec-4e82-a81c-566a8d54bd63
+		sourceLineageTag: Quantity
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: double
+		lineageTag: 7214912b-a311-4f9d-b48e-9a29ec2ef8e0
+		sourceLineageTag: UnitPrice
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column StandardCost
+		dataType: double
+		lineageTag: 4cdc38e1-efd3-4a26-a7c2-023189fd0e0e
+		sourceLineageTag: StandardCost
+		summarizeBy: sum
+		sourceColumn: StandardCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GrossProfit
+		dataType: double
+		lineageTag: 298a4ab7-3a97-407d-bd62-283dc74780ec
+		sourceLineageTag: GrossProfit
+		summarizeBy: sum
+		sourceColumn: GrossProfit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ProfitMargin
+		dataType: double
+		lineageTag: 843d3bd8-8d21-49ed-a2b9-2e24d221d6b8
+		sourceLineageTag: ProfitMargin
+		summarizeBy: sum
+		sourceColumn: ProfitMargin
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: fb1eeccc-403e-488c-9adb-bd87fa586ec9
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_sales = entity
+		mode: directLake
+		source
+			entityName: fact_sales
+			schemaName: dbo
+			expressionSource: 'DirectLake - WWI_Gold_Lakehouse'
+

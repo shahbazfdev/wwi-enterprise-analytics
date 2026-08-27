@@ -1,0 +1,92 @@
+table dim_date
+	lineageTag: 6fb41376-2083-4f4f-800a-d206ebc9ccb9
+	sourceLineageTag: [dbo].[dim_date]
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f013ae20-aed5-4a57-8cef-f8e9854c0e70
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column FullDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 37a9e375-ad0c-4c98-a4db-31e71b83c95e
+		sourceLineageTag: FullDate
+		summarizeBy: none
+		sourceColumn: FullDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ec02241-4f80-4438-9ead-2ee9cba3c348
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 5d873ed6-3d96-4a11-850b-47078c627b78
+		sourceLineageTag: Month
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: int64
+		formatString: 0
+		lineageTag: 42c0e72c-5d7f-407d-80a5-2f54543299a4
+		sourceLineageTag: Day
+		summarizeBy: none
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 268a25df-d3fb-454a-83fd-a6528e5f93ae
+		sourceLineageTag: Quarter
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeek
+		dataType: int64
+		formatString: 0
+		lineageTag: f1a686fb-ba20-47d2-9965-37c051a31ecc
+		sourceLineageTag: DayOfWeek
+		summarizeBy: none
+		sourceColumn: DayOfWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekend
+		dataType: string
+		lineageTag: 142c989b-eabf-48c5-bf44-0f293beb3801
+		sourceLineageTag: IsWeekend
+		summarizeBy: none
+		sourceColumn: IsWeekend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = entity
+		mode: directLake
+		source
+			entityName: dim_date
+			schemaName: dbo
+			expressionSource: 'DirectLake - WWI_Gold_Lakehouse'
+

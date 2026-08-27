@@ -1,0 +1,13 @@
+relationship 02c43f5f-5035-5ec1-c10c-a21847a9c3d2
+	isActive: false
+	fromColumn: fact_sales.CustomerID
+	toColumn: dim_customer.CustomerID
+
+relationship 3cd3a89d-6228-d515-4ac9-8e72c31ef3a9
+	fromColumn: fact_sales.DateKey
+	toColumn: dim_date.DateKey
+
+relationship 1b57dd0c-0d31-f205-df68-c196b2b9a795
+	fromColumn: fact_sales.StockItemID
+	toColumn: dim_stockitem.StockItemID
+

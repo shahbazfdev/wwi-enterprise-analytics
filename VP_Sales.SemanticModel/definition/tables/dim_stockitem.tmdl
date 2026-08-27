@@ -1,0 +1,81 @@
+table dim_stockitem
+	lineageTag: 4a755fd2-7daa-45db-800c-dba42e70dad5
+	sourceLineageTag: [dbo].[dim_stockitem]
+
+	column StockItemID
+		dataType: int64
+		formatString: 0
+		lineageTag: 833f7bbb-4548-41cb-bb1f-68eb8cfe17ef
+		sourceLineageTag: StockItemID
+		summarizeBy: none
+		sourceColumn: StockItemID
+
+		annotation SummarizationSetBy = Automatic
+
+	column StockItemName
+		dataType: string
+		lineageTag: a7c438fe-0330-4d40-9980-9d5f1fa694fb
+		sourceLineageTag: StockItemName
+		summarizeBy: none
+		sourceColumn: StockItemName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		dataType: string
+		lineageTag: 4ecd3435-3ee8-4b91-bfe0-8525ab129ab4
+		sourceLineageTag: Brand
+		summarizeBy: none
+		sourceColumn: Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column Size
+		dataType: string
+		lineageTag: 49f75e53-6ea6-48fe-b404-201f0f57c132
+		sourceLineageTag: Size
+		summarizeBy: none
+		sourceColumn: Size
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weight
+		dataType: double
+		lineageTag: 41ccef7f-de06-457a-9256-7acfbdd192bf
+		sourceLineageTag: Weight
+		summarizeBy: none
+		sourceColumn: Weight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitPrice
+		dataType: double
+		lineageTag: 4ddc7471-e123-45ab-bcb6-0484c2144fb5
+		sourceLineageTag: UnitPrice
+		summarizeBy: none
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RecommendedRetailPrice
+		dataType: double
+		lineageTag: 87f24c94-965c-4356-9863-7d0d2d99c6d1
+		sourceLineageTag: RecommendedRetailPrice
+		summarizeBy: none
+		sourceColumn: RecommendedRetailPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dim_stockitem = entity
+		mode: directLake
+		source
+			entityName: dim_stockitem
+			schemaName: dbo
+			expressionSource: 'DirectLake - WWI_Gold_Lakehouse'
+
