@@ -103,3 +103,102 @@ display(df_headers.limit(10))
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# CELL ********************
+
+# MAGIC %%pyspark
+# MAGIC # ============================================================================
+# MAGIC # Lakehouse Fact Table Finder (PySpark)
+# MAGIC # Lakehouse Fact Table Finder (PySpark)
+# MAGIC # Loops through every Delta table in the current Lakehouse and scores it on
+# MAGIC # heuristics that typically indicate a fact table:
+# MAGIC #   - row count (facts are usually the biggest tables)
+# MAGIC #   - number of ID/Key-suffixed columns (proxy for FK columns, since Delta
+# MAGIC #     tables don't enforce real foreign keys)
+# MAGIC #   - number of numeric/measure-like columns (facts are summable)
+# MAGIC #   - presence of a date/timestamp column (events happen at a point in time)
+# MAGIC #   - number of ID/Key columns >= 2 as a composite-key-ish signal
+# MAGIC #
+# MAGIC # Run this in a Fabric notebook attached to your Lakehouse.
+# MAGIC # ============================================================================
+# MAGIC 
+# MAGIC from pyspark.sql.types import NumericType, DateType, TimestampType
+# MAGIC 
+# MAGIC results = []
+# MAGIC 
+# MAGIC # list every table registered in the lakehouse's default catalog
+# MAGIC tables = spark.catalog.listTables()
+# MAGIC 
+# MAGIC for t in tables:
+# MAGIC     table_name = t.name
+# MAGIC     try:
+# MAGIC         df = spark.table(table_name)
+# MAGIC         schema = df.schema
+# MAGIC 
+# MAGIC         row_count = df.count()
+# MAGIC 
+# MAGIC         numeric_col_count = sum(1 for f in schema.fields if isinstance(f.dataType, NumericType))
+# MAGIC         date_col_count = sum(
+# MAGIC             1 for f in schema.fields
+# MAGIC             if isinstance(f.dataType, (DateType, TimestampType))
+# MAGIC         )
+# MAGIC 
+# MAGIC         # proxy for FK / composite key: columns ending in ID or Key (case-insensitive),
+# MAGIC         # excluding the single most obvious primary id (first column ending in ID/Key
+# MAGIC         # that also starts with the table's own name is usually the table's own PK,
+# MAGIC         # but we keep this simple and just count all of them)
+# MAGIC         id_like_cols = [
+# MAGIC             f.name for f in schema.fields
+# MAGIC             if f.name.lower().endswith("id") or f.name.lower().endswith("key")
+# MAGIC         ]
+# MAGIC         id_like_col_count = len(id_like_cols)
+# MAGIC 
+# MAGIC         has_composite_key_signal = 1 if id_like_col_count >= 2 else 0
+# MAGIC 
+# MAGIC         fact_score = (
+# MAGIC             id_like_col_count * 3
+# MAGIC             + numeric_col_count * 2
+# MAGIC             + date_col_count * 2
+# MAGIC             + has_composite_key_signal * 5
+# MAGIC             + (3 if row_count > 10000 else 1 if row_count > 1000 else 0)
+# MAGIC         )
+# MAGIC 
+# MAGIC         results.append({
+# MAGIC             "table_name": table_name,
+# MAGIC             "row_count": row_count,
+# MAGIC             "id_like_col_count": id_like_col_count,
+# MAGIC             "numeric_col_count": numeric_col_count,
+# MAGIC             "date_col_count": date_col_count,
+# MAGIC             "has_composite_key_signal": has_composite_key_signal,
+# MAGIC             "fact_score": fact_score,
+# MAGIC             "id_like_columns": ", ".join(id_like_cols)
+# MAGIC         })
+# MAGIC 
+# MAGIC     except Exception as e:
+# MAGIC         # skip anything that isn't a readable table (views, temp tables, etc.)
+# MAGIC         results.append({
+# MAGIC             "table_name": table_name,
+# MAGIC             "row_count": None,
+# MAGIC             "id_like_col_count": None,
+# MAGIC             "numeric_col_count": None,
+# MAGIC             "date_col_count": None,
+# MAGIC             "has_composite_key_signal": None,
+# MAGIC             "fact_score": None,
+# MAGIC             "id_like_columns": f"ERROR: {str(e)[:100]}"
+# MAGIC         })
+# MAGIC 
+# MAGIC result_df = spark.createDataFrame(results)
+# MAGIC result_df = result_df.orderBy(result_df.fact_score.desc())
+# MAGIC 
+# MAGIC display(result_df)
+# MAGIC 
+# MAGIC # Optional: write the ranking itself to a Delta table so you have a record
+# MAGIC # of your modeling decisions (nice touch for your project write-up / Phase 7)
+# MAGIC # result_df.write.mode("overwrite").saveAsTable("silver_fact_dimension_scan")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }

@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
     "type": "Notebook",
-    "displayName": "wwi_silver_layer"
+    "displayName": "Phase 1: Streamline & Store in Silver"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "3a87b109-650a-9650-452d-f890fe1e93d4"
+    "logicalId": "969c3735-e690-b180-454d-9f23ac3b58f7"
   }
 }
